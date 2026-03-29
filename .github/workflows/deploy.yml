@@ -11,11 +11,11 @@ jobs:
   test:
     environment: Testing2
     runs-on: ubuntu-latest
-    container: 
+    container: # this will run all steps in a container, and we can also specify services (other containers) that our main container can interact with
       image: node:16
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb
-      MONGODB_CLUSTER_ADDRESS: mongodb
+      MONGODB_CLUSTER_ADDRESS: mongodb  #127.0.0.1:27017 this is if your not using a containerized database, but we are so we can use the service name as the address
       MONGODB_USERNAME: root
       MONGODB_PASSWORD: example
       PORT: 8080
@@ -25,6 +25,8 @@ jobs:
         env:
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: example
+          # ports: # not needed since we can access the database through the service name and default port, but if you want to access it outside of the container you can uncomment this
+          #   - 27017:27017
       # mysql: // Check Docker Hub for official images of other databases
       #   image: mysql:latest
       #   ports:
